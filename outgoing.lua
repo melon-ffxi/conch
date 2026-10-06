@@ -217,12 +217,13 @@ end;
 -- for everyone on the other end while still showing up in the local echo.
 --
 -- The chat manager owns the phrase table, so hand the message to it first.
--- Brackets are kept so the reader can see a phrase was used.
+-- The flag is `useBrackets`: false writes the phrase out as plain text, true
+-- would wrap it in square brackets.
 local function parse_autotranslate(text)
     local chat = AshitaCore:GetChatManager();
     if chat == nil then return text; end
     local ok, parsed = pcall(function()
-        return chat:ParseAutoTranslate(text, true);
+        return chat:ParseAutoTranslate(text, false);
     end);
     if ok and type(parsed) == 'string' then return parsed; end
     return text;
